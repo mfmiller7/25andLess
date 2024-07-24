@@ -2,8 +2,11 @@
 Paradise Rock Club: KovZpZA11JtA
 Brighton Music Hall: KovZpapwne
 Roadrunner: Z7r9jZa7rs
+House of Blues: KovZpZAEA7eA # 2 events under 25
+Orpheum Theatre: KovZpZA1J7JA # no events under 25
+MGM: KovZ917AEJz # ine event under 25
 
-# got 0 events
+# got 0 events ??
 Middle East: KovZpaoV7e
 
 # Error fetching data from Ticketmaster API: Cannot read properties of undefined (reading 'name') 
@@ -11,8 +14,3 @@ Middle East - Upstairs: rZ7HnEZa7LQ
 Middle East - Downstairs: KovZpZAId1kA
 Middle East - Zuzu: KovZpa6vJe
 Middle East - Corner Bakery: KovZpa8pwe
-
-# no error just got nothing 
-MGM: KovZ917AEJz
-House of Blues: KovZpZAEA7eA
-Orpheum Theatre: KovZpZA1J7JA

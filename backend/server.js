@@ -3,10 +3,10 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;;
 
-const url = process.env.API_URL || 'https://app.ticketmaster.com/discovery/v2/events.json';
-const api_key = process.env.API_KEY || 'CJpHB9QmKVH7R5eXhWTLOG31VacUGhtt';
+const url = process.env.API_URL;
+const api_key = process.env.API_KEY;
 
 function filterEventsByPrice(events, maxPrice) {
     return events.filter(event => {
@@ -36,21 +36,18 @@ function parseEventData(event) {
     };
 };
 
-async function fetchAllPages(postal, radius, startDate, endDate) {
+async function fetchAllPages(venueID) {
     let events = [];
     let page = 0;
-    let totalPages = 5;
+    let totalPages = 5; // get spike arrest violation when > 6
 
     while (page < totalPages) {
         const response = await axios.get(url, {
             params: {
                 apikey: api_key,
-                postalCode: postal,
-                radius: radius,
-                unit: 'miles',
+                venueId: venueID,
                 classificationName: 'music',
-                startDateTime: `${startDate}T00:00:00Z`,
-                endDateTime: `${endDate}T23:59:59Z`,
+                local: '*',
                 page: page
             }
         });
@@ -58,7 +55,7 @@ async function fetchAllPages(postal, radius, startDate, endDate) {
         if (response.data._embedded) {
             events = events.concat(response.data._embedded.events);
         }
-        
+
         totalPages = response.data.page.totalPages;
         page += 1;
     }
@@ -66,21 +63,27 @@ async function fetchAllPages(postal, radius, startDate, endDate) {
     return events;
 }
 
-app.get('/:postal/:radius/:start/:end', async (req, res) => {
-    const { postal, radius, start, end } = req.params;
+app.get('/:venueID', async (req, res) => {
+    const { venueID } = req.params;
 
-    console.log(`Received request for postal: ${postal}, radius: ${radius}`);
+    console.log(`Received request for venue: ${venueID}`);
 
     try {
-        const allEvents = await fetchAllPages(postal, radius, start, end);
+        const allEvents = await fetchAllPages(venueID);
 
-        console.log(`Total events fetched: ${allEvents.length}`);
+        console.log(`Total events: ${allEvents.length}`);
 
         const filteredEvents = filterEventsByPrice(allEvents, 25);
 
-        const parsedEvents = filteredEvents.map(parseEventData);
+        console.log(`Events under $25: ${filteredEvents.length}`);
 
-        res.json(parsedEvents);
+        if (filteredEvents.length == 0) {
+            res.send('No events under $25');
+        } else {
+            const parsedEvents = filteredEvents.map(parseEventData);
+            res.json(parsedEvents);
+        }
+
     } catch (error) {
         console.error('Error fetching data from Ticketmaster API:', error.message);
         if (error.response) {

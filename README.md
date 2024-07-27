@@ -1,2 +1,2 @@
-# 25 & Less
+# 25 and Less
 Developing a web application to display nearby venues with music events priced under $25, using interactive maps.

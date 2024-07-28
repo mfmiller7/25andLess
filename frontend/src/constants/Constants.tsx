@@ -1,1 +1,0 @@
-export const ApiKey = process.env.API_KEY;

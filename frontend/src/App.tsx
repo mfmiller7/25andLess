@@ -1,11 +1,12 @@
 import Map from './components/Map';
+import { StyledDiv } from './Styles';
 
 function App() {
 
   return (
-    <div>
+    <StyledDiv>
         <Map/>
-    </div>
+    </StyledDiv>
   );
 }
 

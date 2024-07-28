@@ -11,3 +11,7 @@ export const PopupHeader = styled.h2`
 export const PopupAddress = styled.h3`
   font-weight: bold;
 `;
+
+export const ScrollView = styled.div`
+  overflow-y: auto;
+`;

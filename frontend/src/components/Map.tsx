@@ -5,7 +5,7 @@ import { PopupHeader, PopupAddress } from '../Styles';
 export default function Map() {
 
   return (
-    <MapContainer center={position} zoom={13} style={{ height: windowHeight-40, width: "100%" }}>
+    <MapContainer center={position} zoom={12} style={{ height: windowHeight-80, width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

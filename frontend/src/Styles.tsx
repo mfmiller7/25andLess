@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledDiv = styled.div`
-  padding: 20px;
+  padding: 40px;
 `;
 
 export const PopupHeader = styled.h2`

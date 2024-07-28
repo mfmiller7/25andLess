@@ -1,5 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { markers, icon, position, windowHeight } from '../Constants';
+import { PopupHeader, PopupAddress } from '../Styles';
 
 export default function Map() {
 
@@ -11,7 +12,10 @@ export default function Map() {
       />
       {markers.map((marker, index) => (
         <Marker key={index} position={marker.position} icon={icon}>
-          <Popup>{marker.text}</Popup>
+          <Popup>
+            <PopupHeader>{marker.name}</PopupHeader>
+            <PopupAddress>{marker.address}</PopupAddress>
+          </Popup>
         </Marker>
       ))}
     </MapContainer>

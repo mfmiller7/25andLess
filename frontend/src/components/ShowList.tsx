@@ -4,7 +4,7 @@ import { Event, ShowListProps } from "../types";
 
 export default function ShowList({ id }: ShowListProps) {
     
-    const [data, setData] = useState<Event[]>([]); // Use Event[] type for data
+    const [data, setData] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 

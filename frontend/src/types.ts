@@ -13,17 +13,26 @@ export interface Event {
     venueCity: string;
     venueState: string;
     venueCountry: string;
-}
+};
 
 export interface ShowListProps {
     id: string;
-}
-
-type LatLngTuple = [number, number];
+};
 
 export interface MarkerData {
     id: string;
-    position: LatLngTuple;
+    position: any;
     name: string;
     address: string;
-}
+};
+
+export interface AddressModalProps {
+  open: boolean;
+  onClose: () => void;
+  onAddressSubmit: (coordinates: any) => void;
+};
+
+export interface MapProps {
+    position: any;
+    isDefault: boolean;
+};

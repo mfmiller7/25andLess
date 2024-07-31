@@ -2,11 +2,12 @@ import L from 'leaflet';
 import iconMarker from 'leaflet/dist/images/marker-icon.png';
 import iconRetina from 'leaflet/dist/images/marker-icon-2x.png';
 import { MarkerData } from './types';
+import person from './person.png';
 
 export const windowWidth = window.innerWidth;
 export const windowHeight = window.innerHeight;
 
-export const position: L.LatLngExpression = [42.3467, -71.0972];
+export const defaultPosition: L.LatLngExpression = [42.3467, -71.0972];
 
 export const markers: MarkerData[] = [
     { id: 'KovZpapwne', position: [42.352859, -71.132561], name: "Brighton Music Hall", address: "158 Brighton Ave, Allston, MA 02134" },
@@ -22,4 +23,9 @@ export const icon = L.icon({
     iconRetinaUrl: iconRetina,
     iconUrl: iconMarker,
     iconSize: [20, 30],
+});
+
+export const personIcon = L.icon({
+    iconUrl: person,
+    iconSize: [50, 60],
 });

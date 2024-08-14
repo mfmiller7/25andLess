@@ -5,11 +5,12 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { AddressModalProps } from '../types';
-import { ModalStyle } from '../Styles';
-import { Geocode } from '../Geocode';
+import { ModalStyle } from '../styles';
+import { geocodeAddress } from '../geocodeAddress';
 import { Alert } from '@mui/material';
+import { usePositionStore } from '../usePositionStore';
 
-export const AddressModal: React.FC<AddressModalProps> = ({ open, onClose, onAddressSubmit }) => {
+export const AddressModal: React.FC<AddressModalProps> = ({ open, onClose }) => {
   const [address, setAddress] = useState<string>('');
   const [city, setCity] = useState<string>('');
   const [state, setState] = useState<string>('');
@@ -18,15 +19,17 @@ export const AddressModal: React.FC<AddressModalProps> = ({ open, onClose, onAdd
 
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
+  const setCoordinates = usePositionStore((state) => state.setCoordinates);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const fullAddress = `${address}, ${city}, ${state}, ${zip}, ${country}`;
-    const coordinates = await Geocode(fullAddress);
+    const coordinates = await geocodeAddress(fullAddress);
     if (coordinates == null) {
       setShowAlert(true);
     } else {
       console.log('Coordinates:', coordinates);
-      onAddressSubmit(coordinates);
+      setCoordinates(coordinates);
       handleSkip();
     }
   };

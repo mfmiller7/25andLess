@@ -29,10 +29,10 @@ export interface MarkerData {
 export interface AddressModalProps {
   open: boolean;
   onClose: () => void;
-  onAddressSubmit: (coordinates: any) => void;
 };
 
-export interface MapProps {
-    position: any;
-    isDefault: boolean;
-};
+export interface PositionState {
+    coordinates: L.LatLngExpression;
+    default: boolean;
+    setCoordinates: (coords: L.LatLngExpression) => void;
+  }

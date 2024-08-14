@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const API_KEY = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
+const API_KEY = 'AIzaSyAZJsWB997890tlhuYgk4uDhoVKiZAsQuQ'; // process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
-export const Geocode = async (address: any) => {
+export const geocodeAddress = async (address: any) => {
   try {
     const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
       params: {
@@ -13,7 +13,8 @@ export const Geocode = async (address: any) => {
 
     if (response.data.status === 'OK') {
       const location = response.data.results[0].geometry.location;
-      return [location.lat, location.lng];
+      const coordinates: L.LatLngExpression = [location.lat, location.lng];
+      return coordinates;
     } else {
       throw new Error('Geocoding failed');
     }

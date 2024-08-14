@@ -1,18 +1,14 @@
 import { Button } from '@mui/material';
 import { AddressModal } from './components/AddressModal';
 import { Map } from './components/Map';
-import { StyledDiv } from './Styles';
+import { StyledDiv } from './styles';
 import { useState } from 'react';
+import { usePositionStore } from './usePositionStore';
 
 export default function App() {
-  const [modalOpen, setModalOpen] = useState<boolean>(true);
-  const [userPosition, setUserPosition] = useState<any>([42.3467, -71.0972]);
-  const [isDefault, setIsDefault] = useState<boolean>(true);
-
-  const handleAddressSubmit = async (coordinates: any) => {
-    setUserPosition(coordinates);
-    setIsDefault(false);
-  };
+  
+  const isDefault = usePositionStore((state) => state.default);
+  const [modalOpen, setModalOpen] = useState<boolean>(isDefault);
 
   const handleModalClose = () => {
     setModalOpen(false);
@@ -23,7 +19,6 @@ export default function App() {
       <AddressModal
         open={modalOpen}
         onClose={handleModalClose}
-        onAddressSubmit={handleAddressSubmit}
       />
       <Button
         variant="text"
@@ -31,7 +26,7 @@ export default function App() {
       >
         Enter your location
       </Button>
-      <Map position={userPosition} isDefault={isDefault} />
+      <Map />
     </StyledDiv>
   );
 }

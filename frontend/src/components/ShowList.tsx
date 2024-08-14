@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ScrollView } from "../Styles";
+import { ScrollView } from "../styles";
 import { Event, ShowListProps } from "../types";
 
 export default function ShowList({ id }: ShowListProps) {
@@ -11,7 +11,7 @@ export default function ShowList({ id }: ShowListProps) {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/${id}`); // Fetch data using the id
+                const response = await fetch(`http://localhost:3001/${id}`); // Fetch data using the id
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

@@ -1,25 +1,23 @@
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { markers, personIcon, icon, windowHeight, defaultPosition } from '../Constants';
-import { PopupHeader, PopupAddress } from '../Styles';
+import { markers, personIcon, icon, windowHeight } from '../constants';
+import { PopupHeader, PopupAddress } from '../styles';
 import ShowList from './ShowList';
-import { MapProps } from '../types';
-import { useEffect, useState } from 'react';
+import { usePositionStore } from '../usePositionStore';
+import { useEffect } from 'react';
 
-export const Map: React.FC<MapProps> = ({ position, isDefault }) => {
-  const [center, setCenter] = useState(defaultPosition);
+export const Map = () => {
   
-  useEffect(() => {
-    setCenter(position);
-  }, [position]); // still not centering around new address??
-
+  const coordinates = usePositionStore((state) => state.coordinates);
+  const isDefault = usePositionStore((state) => state.default);
+  
   return (
-    <MapContainer center={center} zoom={14} style={{ height: windowHeight, width: "100%" }}>
+    <MapContainer center={coordinates} zoom={14} style={{ height: windowHeight-40, width: "100%" }}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       {!isDefault && (
-        <Marker position={position} icon={personIcon}>
+        <Marker position={coordinates} icon={personIcon}>
           <Popup>
             <PopupHeader>You</PopupHeader>
           </Popup>
